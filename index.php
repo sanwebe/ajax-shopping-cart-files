@@ -85,8 +85,12 @@ if(isset($_SESSION["products"])){
 <?php
 //List products from database
 $results = $mysqli_conn->query("SELECT product_name, product_desc, product_code, product_image, product_price FROM products_list");
-//Display fetched records as you please
+if (!$results){
+    printf("Error: %s\n", $mysqli_conn->error);
+    exit;
+}
 
+//Display fetched records as you please
 $products_list =  '<ul class="products-wrp">';
 
 while($row = $results->fetch_assoc()) {
